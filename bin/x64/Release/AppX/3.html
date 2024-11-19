@@ -1,0 +1,398 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {
+  font-family: "Lato", sans-serif;
+}
+
+.sidenav {
+  height: 100%;
+  width: 230px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+
+.main {
+        height: 100%;
+        width: 1020px;
+        position: scroll;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        background-color: #fff;
+        overflow-x: scroll;
+        overflow-y: scroll;
+        padding-top: 0px;
+    }
+.sidenav a {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 15px;
+  color: white;
+  display: block;
+}
+
+.sidenav a:hover {
+  color: red;
+}
+
+.main {
+  margin-left: 240px; /* Same as the width of the sidenav */
+  font-size: 28px; /* Increased text to enable scrolling */
+  padding: 0px 10px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+</style>
+</head>
+<body>
+<div class="sidenav">
+<a href="1.html">【🖳Apache Tomcat Penetration Testing🛠️👨🏽‍💻】</a>
+  <a href="2.html">【🖳Penetration Testing on MYSQL (Port 3306)🛠️👨🏽‍💻】</a>
+  <a href="3.html">【🖳Understanding HTTP Protocol🛠️👨🏽‍💻】</a>
+  <a href="4.html">【🖳Comprehensive Guide on Password Spraying Attack🛠️👨🏽‍💻】</a>
+ <a href="5.html">【🖳A Detailed Guide on Hydra Tool🛠️👨🏽‍💻】</a>
+  <a href="6.html">【🖳A Detailed Guide on Medusa Tool🛠️👨🏽‍💻】</a>
+  <a href="7.html">【🖳Comprehensive Guide on Local & Remote File Inclusion🛠️👨🏽‍💻】</a>
+<a href="8.html">【🖳Netcat for Pentesting🛠️👨🏽‍💻】</a>
+  <a href="9.html">【🖳Comprehensive Guide on Dirbuster & BurpSuite Spider Tools🛠️👨🏽‍💻】</a>
+  <a href="10.html">【🖳Jenkins Penetration Testing🛠️👨🏽‍💻】</a>
+ <p align="center"><img src="https://i.ibb.co/yyQbWbC/net.png" height="90" width="200"></p> 
+</div>
+<div class="main">
+<div class="markdown-heading" dir="auto">
+<h1 class="heading-element" dir="auto" tabindex="-1"><p align="left">🖳Understanding HTTP Protocol🛠️</p></h1>
+<p>HTTP (Hyper Text Transfer Protocol) is basically a client-server protocol, wherein the client (web browser) makes a request to the server and in return, the server responds to the request. The response by the server is mostly in the form of HTML formatted pages. HTTP protocol by default uses port 80, but the web server and the client can be configured to use a different port.</p>
+<p>HTTP is a stateless protocol which means that the server does not retain the information from each user. HTTP is the backbone of the World Wide Web (www) and for it being stateless simply means that it does not remember each and every client that connects to the internet and it does not matter if a single user sends multiple requests one after another, they all will still be treated as independent requests by the server.</p>
+<p>We are currently using HTTP 2, its predecessors were HTTP 1.0 and 1.1, and the major differences between 1.X and 2, at a higher level, are:</p>
+<ul>
+<li>Http 2 is binary and not textual</li>
+<li>Http 2 is multiplexed, it can use a single connection for parallelism, Http one, on the other hand, is based on ordering and blocking.</li>
+<li>Http 2 uses compression in its headers to reduce the overhead.</li>
+<li>Http2 gives servers the capability to &ldquo;push&rdquo; responses to client servers proactively.</li>
+</ul>
+<p>HTTP works through different methods and these methods are:</p>
+<h3><strong>HTTP Request Methods</strong></h3>
+<table>
+<tbody>
+<tr>
+<td width="102"><strong>Method</strong></td>
+<td width="522"><strong>Description</strong></td>
+</tr>
+<tr>
+<td width="102">GET</td>
+<td width="522">Used to retrieve information from the given URL</td>
+</tr>
+<tr>
+<td width="102">guide</td>
+<td width="522">Used to send data to the server, for example, customer information, file upload, etc. using HTML forms</td>
+</tr>
+<tr>
+<td width="102">DELETE</td>
+<td width="522">Delete a File of the specified URL</td>
+</tr>
+<tr>
+<td width="102">PUT</td>
+<td width="522">Uploads a File of the specified URL</td>
+</tr>
+<tr>
+<td width="102">TRACE</td>
+<td width="522">Trace on the jsp resource returns the content of the resource.</td>
+</tr>
+<tr>
+<td width="102">HEAD</td>
+<td width="522">GET only HTTP headers and no document body</td>
+</tr>
+<tr>
+<td width="102">OPTIONS</td>
+<td width="522">HTTP methods that the server supports</td>
+</tr>
+</tbody>
+</table>
+<p>There is a major difference between GET and guide method which people fail to understand. Once you understand these properly, you can manipulate and increase the security of your web application. The differences are as follows:</p>
+<table>
+<tbody>
+<tr>
+<td width="312"><strong>GET</strong></td>
+<td width="312"><strong>guide</strong></td>
+</tr>
+<tr>
+<td width="312">Get request can be cached</td>
+<td width="312">guide request are never cached</td>
+</tr>
+<tr>
+<td width="312">Remain in the browser history</td>
+<td width="312">Do not remain in the browser history</td>
+</tr>
+<tr>
+<td width="312">It can be bookmarked</td>
+<td width="312">It cannot be bookmarked</td>
+</tr>
+<tr>
+<td width="312">Get request should never be used when dealing with sensitive data</td>
+<td width="312">The guide should always be used for sensitive data</td>
+</tr>
+<tr>
+<td width="312">Get request has a length restriction</td>
+<td width="312">guide request has no length restriction</td>
+</tr>
+<tr>
+<td width="312">Get request should be used to retrieve data</td>
+<td width="312">&nbsp;</td>
+</tr>
+<tr>
+<td width="312">It is less secure</td>
+<td width="312">It is more secure</td>
+</tr>
+</tbody>
+</table>
+<p>An HTTP client sends an HTTP request to a server in the form of a request message which includes the following format</p>
+<pre class="lang:default decode:true">http://yahoo.com/
+GET / HTTP/1.1
+Host: yahoo.com
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:53.0) Gecko/20100101 Firefox/53.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1</pre>
+<p>There are several fields in the header, but we will discuss the more important ones:</p>
+<p><strong>Host</strong>: This field is in the header and it is used to identify individual website by a hostname if they are sharing the same IP address. The client web browser also sets a user-agent string to identify the type and version of the browser.</p>
+<p><strong>User-Agent</strong>: This field is set correctly to its default values by the web browser, but it can be spoofed by the end user. This is usually done by the malicious user to retrieve contents designed for other types of web browsers.</p>
+<p><strong>Cookie</strong>: This field stores a temporary value shared between the client and server for session management.</p>
+<p><strong>Referer</strong>: This is another important field that you would often see when you are redirected from one URL to another. This field contains the address of the previous web page from which a link to the current page was followed. Attackers manipulate the Referer field using an XSS attack and redirect the user to a malicious website.</p>
+<p><strong>Accept-Encoding</strong>: This field defines the compression scheme supported by the client; gzip and Deflate are the most common ones. There are other parameters too, but they are of little use to penetration testers.</p>
+<h3><strong>Response</strong></h3>
+<p><strong>Response:&nbsp;</strong>When a request is sent to the server; the server replies in the form of response. Following is an example of a response:</p>
+<pre class="lang:default decode:true ">HTTP/1.1 200 OK
+Date: Sat, 10 Jun 2017 05:17:18 GMT
+Set-Cookie: autorf=deleted; expires=Thu, 01-Jan-1970 00:00:01 GMT; Max-Age=0; path=/;
+domain=in.yahoo.com
+Content-Type: text/html; charset=UTF-8
+Server: ATS
+Expires: -1
+Content-Length: 477864</pre>
+<p><strong>HTTP Response Code:</strong>&nbsp;The Status-Code element is a 3-digit integer where the first digit of the Status-Code defines the class of response and the last two digits do not have any categorization role. There are 5 values for the first digit</p>
+<table>
+<tbody>
+<tr>
+<td width="213"><strong>Code</strong></td>
+<td width="213"><strong>Meaning</strong></td>
+<td width="213"><strong>Example</strong></td>
+</tr>
+<tr>
+<td width="213">1xx</td>
+<td width="213">Information</td>
+<td width="213"><em>100</em>: server agrees to handle a client request.</td>
+</tr>
+<tr>
+<td width="213">2xx</td>
+<td width="213">Success</td>
+<td width="213"><em>200</em>: request succeeded.
+<p>&nbsp;</p>
+<p><em>204</em>: no client present.</p>
+</td>
+</tr>
+<tr>
+<td width="213">3xx</td>
+<td width="213">Redirection</td>
+<td width="213"><em>301</em>: page moved.
+<p>&nbsp;</p>
+<p><em>304</em>: cached page still available.</p>
+</td>
+</tr>
+<tr>
+<td width="213">4xx</td>
+<td width="213">Client error</td>
+<td width="213"><em>403</em>: forbidden page.
+<p>&nbsp;</p>
+<p><em>404</em>: page not found.</p>
+</td>
+</tr>
+<tr>
+<td width="213">5xx</td>
+<td width="213">Server error</td>
+<td width="213"><em>500</em>: internal server error.
+<p>&nbsp;</p>
+<p><em>503</em>: try again later.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>HTTP Version:&nbsp;</strong>A server supporting HTTP version 1.1 will return the following version information</p>
+<p><strong>&nbsp;</strong><strong>Date:&nbsp;</strong>The date and time that the message was originated</p>
+<p><strong>&nbsp;</strong><strong>Set-Cookie</strong>: This field, if defined, will contain a random value that can be used by the server to identify the client and store temporary data</p>
+<p><strong>Server</strong>: This field is of interest to a penetration tester and will help in the recon phase of a test. It displays useful information about the web server hosting the website.<br /><strong>Content-Length</strong>: This field will contain a value indicating the number of bytes in the body of the response. It is used so that the other party can know when the current request/response has finished.</p>
+<p>&nbsp;</p>
+<h1 class="guide-title entry-title">Multiple Ways To Exploiting HTTP Authentication</h1>
+<div class="content guide-excerpt entry-content clearfix">
+<p>In this guide, we will learn about how to configure the password-protected Apache Web Server to restrict from online visitors without validation so that we can hide some essential and critical information to the unauthenticated users and how to penetrate it&rsquo;s the weak configuration to break its security and exploit it.</p>
+<h3>Table of Content</h3>
+<p><strong>Introduction to HTTP Basic Authentication</strong></p>
+<ul>
+<li>Lab Set_up Requirement</li>
+</ul>
+<p><strong>Setup Password Authentication</strong></p>
+<ul>
+<li>Installing the Apache utility Package</li>
+<li>Creating the Password File</li>
+<li>Configuring Access Control inside the Virtual Host Definition</li>
+<li>Configuring Access Control with .htaccess Files</li>
+<li>Confirm the Password Authentication</li>
+</ul>
+<p><strong>Exploiting HTTP Authentication</strong></p>
+<ul>
+<li>xHydra</li>
+<li>Hydra</li>
+<li>Ncrack</li>
+<li>Medusa</li>
+<li>Metasploit</li>
+<li>Burp Suite</li>
+</ul>
+<h3>Introduction to HTTP Basic Authentication</h3>
+<p>In the context of an HTTP transaction, basic access authentication is a method for an HTTP user agent to provide a username and password when requesting.</p>
+<p>HTTP Basic authentication (BA) implementation is the simplest technique for enforcing&nbsp;access controls&nbsp;to web resources because it doesn&rsquo;t require&nbsp;cookies, session identifiers, or login pages; rather, HTTP Basic authentication uses standard fields in the&nbsp;HTTP header, obviating the need for&nbsp;handshakes.</p>
+<p>The BA mechanism provides&nbsp;<strong>no&nbsp;confidentiality&nbsp;protection</strong>&nbsp;for the transmitted credentials. They are merely&nbsp;<strong>encoded with&nbsp;Base64</strong>&nbsp;in transit, but not&nbsp;encrypted&nbsp;or&nbsp;hashed&nbsp;in any way.&nbsp;HTTPS&nbsp;is, therefore, typically preferred used in conjunction with Basic Authentication.</p>
+<p>For more details read from&nbsp;<strong>wikipedia.org</strong></p>
+<p><strong>Lab Setup Requirement</strong></p>
+<p>Apache Server (Ubuntu 14.04)</p>
+<p>Penetration Testing Machine (Kali Linux)</p>
+<h3>Set Up Password Authentication</h3>
+<p><strong>Installing the Apache utility Package</strong></p>
+<p>Let&rsquo;s start with the following command to install an Apache2 utility package called &lsquo;htpasswd&rsquo;. The htpasswd is used to create and update the flat-files used to store usernames and password for basic authentication of HTTP users.</p>
+<pre class="lang:default decode:true">sudo apt-get install apache2 apache2-utils</pre>
+<p><img src="https://2.bp.blogspot.com/-AQuA1Egk3sU/XB0aFYUcqII/AAAAAAAAbws/-Apz_TOkaT4U4RUr0gyUw8U8EVN1WujMQCLcBGAs/s1600/1.png" alt="" /></p>
+<p><strong>Creating the Password File</strong></p>
+<p>Now use the htpasswd command to create a password file that Apache will use to authenticate users and use a hidden file &ldquo;.htpasswd&rdquo; in our /etc/apache2 configuration directory to store password.</p>
+<pre class="lang:default decode:true">sudo htpasswd -c /etc/apache2/.htpasswd raj
+cat /etc/apache2/.htpasswd</pre>
+<p><img src="https://2.bp.blogspot.com/-ESSLEV0B5r4/XB0aHjsJHnI/AAAAAAAAbxI/1JrcQx8bpUcFE7ZncVNhLE_qnKudwBUgwCLcBGAs/s1600/2.png" alt="" /></p>
+<p><strong>Configuring Access Control inside the Virtual Host Definition</strong></p>
+<p>Now save the following configuration in 000-default.conf file.</p>
+<pre class="lang:default decode:true">gedit /etc/apache2/sites-enabled/000-default.conf</pre>
+&nbsp;
+<pre class="lang:default decode:true ">&lt;Directory "/var/www/html"&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AuthType Basic
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AuthName "Restricted Content"
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AuthUserFile /etc/apache2/.htpasswd
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Require valid-user
+&nbsp;&nbsp;&nbsp; &lt;/Directory&gt;</pre>
+<p><img src="https://2.bp.blogspot.com/-ynpQE3Puc20/XB0aKdMTdPI/AAAAAAAAbxk/gclkRw46q7srRFqBKyLpC7IZCU4cTUyUwCLcBGAs/s1600/3.png" alt="" /></p>
+<p><strong>Configuring Access Control with .htaccess Files</strong></p>
+<p>Open the main Apache configuration file to enable password protection using .htaccess files and add the following line as highlighted.</p>
+<pre class="lang:default decode:true">sudo gedit /etc/apache2/apache2.conf
+ServerName localhost</pre>
+<p><img src="https://4.bp.blogspot.com/-zn0Tfpof__o/XB0aLdNn6WI/AAAAAAAAbxw/9BYLhp2DDWwnI40l9p5xIrZYfvdxeFtcACLcBGAs/s1600/4.png" alt="" /></p>
+<p>Enable .htaccess processing by changing the AllowOverride directive &ldquo;<strong>None</strong>&rdquo; to &ldquo;<strong>All</strong>&rdquo; in the block for the /var/www directory and then save the file and restart the apache service.</p>
+<pre class="lang:default decode:true">&lt;Directory /var/www/&gt;
+&nbsp;&nbsp;&nbsp; Options Indexes FollowSymLinks
+&nbsp;&nbsp;&nbsp; AllowOverride All
+&nbsp;&nbsp;&nbsp; Require all granted
+&lt;/Directory&gt;</pre>
+<p><img src="https://2.bp.blogspot.com/-3VelJBh77BU/XB0aLY_4RsI/AAAAAAAAbx0/tFu9AHac51klaQYKtPfm4-bsf7C2ymoxACLcBGAs/s1600/5.png" alt="" /></p>
+<p>&nbsp;</p>
+<p>Next, you need to add an htaccess file to the directory you wish to restrict. Here, I want to restrict the entire website which is could be through /var/www/html, but you can place this file in any directory&nbsp;<strong>where you wish to restrict access:</strong></p>
+<pre class="lang:default decode:true">AuthType Basic
+AuthName "Restricted Content"
+AuthUserFile /etc/apache2/.htpasswd
+Require valid-user</pre>
+&nbsp;
+<pre class="lang:default decode:true">sudo service apache2 restart</pre>
+<p>While configuring .htaccess file we had added few options for the block directory. Let&rsquo;s see what this configuration denotes.</p>
+<p><strong>AuthType Basic</strong>: This will set up a basic authentication for our site.</p>
+<p><strong>AuthName</strong>&nbsp;&ldquo;Restricted Contents&rdquo;: This will show the name of the authentication at the prompt.</p>
+<p><strong>AuthUserFile /etc/apache2/</strong>.htpasswd : This will show the location of the authentication file.</p>
+<p><strong>Require Valid-user:</strong>&nbsp;This will be used by one user who has confirmed their authentication who are permitted to access the website.</p>
+<p><img src="https://1.bp.blogspot.com/-7myTDt7uqf0/XB0aL6NbfpI/AAAAAAAAbx4/DgAfqhw6mPswiSpAaVHEqD9O47VdwA77gCLcBGAs/s1600/6.png" alt="" /></p>
+<h3>Confirm the Password Authentication</h3>
+<p>Try to access your restricted content in a web browser to confirm that your content is protected. I will be accessible with a username and password prompt that looks like this:</p>
+<p><img src="https://1.bp.blogspot.com/-uinHRnEOxdY/XB0aMfsJ5yI/AAAAAAAAbx8/KwB6AYfXlyQJxcB2gy1Z42lPLoAJy_pFACLcBGAs/s1600/7.png" alt="" /></p>
+<p>If you will try to access the website without authentication or canceled the Required Authentication page then it will displace 401 error Unauthorized Access.</p>
+<p><img src="https://3.bp.blogspot.com/-8C68z14mCMk/XB0aMVtxq_I/AAAAAAAAbyA/QLF53GsSWyEGqSZj-dkwAUHEEFgaFV94ACLcBGAs/s1600/8.1.png" alt="" /></p>
+<p>If you are valid users and try to access password protected website by using the valid credential, for example, we had created an account with raj: 123 to access apache HTTP service.</p>
+<p><img src="https://3.bp.blogspot.com/-U_nO_7O4cBY/XB0aM-jIi6I/AAAAAAAAbyE/243bjfb_rWw_70WsK8M2LID1r1qKfdbAQCLcBGAs/s1600/8.png" alt="" /></p>
+<p>As you can observe that, now we are able to access the content of the website.</p>
+<p><img src="https://2.bp.blogspot.com/-ofFxA4gSSQc/XB0aNF0jjAI/AAAAAAAAbyI/9vUotW6pQpUd45tni42DcSuJVnfX9UtEQCLcBGAs/s1600/9.png" alt="" /></p>
+<h3>Exploiting HTTP Authentication</h3>
+<h3>xHydra</h3>
+<p>This is the graphical version to apply dictionary attack via FTP port to hack a system. For this method to work:</p>
+<p>Open&nbsp;<strong>xHydra</strong>&nbsp;in your Kali. And select&nbsp;<strong>Single Target option&nbsp;</strong>and there give the IP of your victim PC. And select&nbsp;<strong>HTTP&nbsp;</strong>in the box against&nbsp;<strong>Protocol option&nbsp;</strong>and give the port number<strong>&nbsp;80</strong>&nbsp;against the&nbsp;<strong>port option</strong>.</p>
+<p><img src="https://2.bp.blogspot.com/-vv5EpECJR6I/XB0aFRsmGhI/AAAAAAAAbww/mg9O2hmamgwXJ_9vPYeJGpbl5LR_f2fFACLcBGAs/s1600/10.png" alt="" /></p>
+<p>Now, go to&nbsp;<strong>Passwords tab&nbsp;</strong>and select&nbsp;<strong>Username List&nbsp;</strong>and give the path of your text file, which contains usernames, in the box adjacent to it.</p>
+<p>Then select Password List and give the path of your text file, which contains all the passwords, in the box adjacent to it.</p>
+<p><img src="https://1.bp.blogspot.com/-NHVlrfNFeFc/XB0aFHrLSbI/AAAAAAAAbwo/DP0FdCzM9UwloPs5xbl6zGOiCVPnpL67wCLcBGAs/s1600/11.png" alt="" /></p>
+<p>After doing this, go to the Start tab and click on the&nbsp;<strong>Start&nbsp;</strong>button on the left.</p>
+<p>Now, the process of dictionary attack will start. Thus, you will obtain the username and password of your victim.</p>
+<p><img src="https://3.bp.blogspot.com/-wqWTz9ZTLiU/XB0aGC9v4WI/AAAAAAAAbw0/ycO5NU87enYWoNoFpUX-IH-LsFaQ9TZrACLcBGAs/s1600/13.png" alt="" /></p>
+<h3><strong>Hydra</strong></h3>
+<p>Hydra is often the tool of choice. It can perform rapid dictionary attacks against more than 50 protocols, including telnet, FTP, HTTP, https, SMB, several databases, and much more</p>
+<p>Now, we need to choose wordlist. As with any dictionary attack, the wordlist is key. Kali has numerous wordlists built right in.</p>
+<p>Run the following command</p>
+<pre class="lang:default decode:true">hydra -L user.txt -P pass.txt 192.168.0.105 http-get</pre>
+<p><strong>-L:</strong>&nbsp;denotes the path for username list</p>
+<p><strong>-P:</strong>&nbsp; denotes the path for the password list</p>
+<p>Once the commands are executed it will start applying the dictionary attack and so you will have the right username and password in no time. As you can observe that we had successfully grabbed the HTTP username as raj and password as 123.</p>
+<p><img src="https://3.bp.blogspot.com/-NPs5XbkdCHo/XB0aGi3oOZI/AAAAAAAAbw4/ZFH3IWQgqOohNgZCkTydK0QuRsw5hcUFQCLcBGAs/s1600/14.png" alt="" /></p>
+<h3>Ncrack</h3>
+<p>Ncrack is a high-speed network authentication cracking tool. It was built to help companies secure their networks by proactively testing all their hosts and networking devices for poor passwords.</p>
+<p>Run the following command</p>
+<pre class="lang:default decode:true">ncrack -U user.txt -P pass.txt http://192.168.0.105</pre>
+<p>Here</p>
+<p><strong>-U:</strong>&nbsp;denotes the path for username list</p>
+<p><strong>-P:</strong>&nbsp; denotes the path for the password list</p>
+<p>As you can observe that we had successfully grabbed the HTTP username as raj and password as 123.</p>
+<p><img src="https://4.bp.blogspot.com/-hbCco0GU9xc/XB0aGjpKiMI/AAAAAAAAbw8/R6LnDYIbaFogb9fpMKwGIm-XNyLnDAWYQCLcBGAs/s1600/15.png" alt="" /></p>
+<h3>Medusa</h3>
+<p>Medusa is intended to be a speedy, massively parallel, modular, login brute-forcer. It supports many protocols: AFP, CVS, FTP, HTTP, IMAP, rlogin, SSH, Subversion, and VNC to name a few</p>
+<p>Run the following command</p>
+<pre class="lang:default decode:true">medusa -h 192.168.0.105 -U user.txt -P pass.txt -M http -f</pre>
+<p>Here</p>
+<p><strong>-U:</strong>&nbsp;denotes the path for username list</p>
+<p><strong>-P:</strong>&nbsp; denotes the path for the password list</p>
+<p>As you can observe that we had successfully grabbed the HTTP username as raj and password as 123.</p>
+<p><img src="https://3.bp.blogspot.com/-Xouo65ZzKOw/XB0aHQlz1NI/AAAAAAAAbxA/lcTFTRllh9AGA21HFt4j2cW2I6UpRHMNgCLcBGAs/s1600/16.png" alt="" /></p>
+<h3>Metasploit</h3>
+<p>This guide attempts to authenticate to an HTTP service. Open Kali terminal type<strong>&nbsp;msfconsole</strong>&nbsp;and then type:<strong>&nbsp;</strong></p>
+<pre class="lang:default decode:true">use auxiliary/scanner/http/http_login
+msf auxiliary(scanner/http/http_login) &gt; set user_file user.txt
+msf auxiliary(scanner/http/http_login) &gt; set pass_file pass.txt
+msf auxiliary(scanner/http/http_login) &gt; set rhosts 192.168.0.105
+msf auxiliary(scanner/http/http_login) &gt;&nbsp; set stop_on_success true
+msf auxiliary(scanner/http/http_login) &gt; exploit</pre>
+<p><img src="https://1.bp.blogspot.com/-BWodAnt3EaI/XB0aHlMJjXI/AAAAAAAAbxE/73Vo4pyWz-saqisvHVMU3mvE4Yvg3s-hQCLcBGAs/s1600/17.png" alt="" /></p>
+<h3>Burp Suite</h3>
+<p>Now&nbsp;here I had just typed the random value for authentication in order to fetch the request through Burp Suite. So before you sent the request to server&nbsp;<strong>turn on</strong>&nbsp;the&nbsp;<strong>burp suite</strong>&nbsp;and&nbsp;<strong>select proxy tab</strong>&nbsp;then,&nbsp;<strong>click</strong>&nbsp;on the&nbsp;<strong>intercept is on</strong>&nbsp;after then send the user authentication by clicking ok</p>
+<p><img src="https://1.bp.blogspot.com/-wDF3F26ZG_M/XB0aIcTU6LI/AAAAAAAAbxM/RRngvWlB6bMDiFmB_P5FBAWIz5osRTWYwCLcBGAs/s1600/24.png" alt="" /></p>
+<p>Thus the sent request is captured by burp suite which you can see in the given below image. In the screenshot, I had&nbsp;highlighted&nbsp;some value in the last line. Here it says the type of authentication provided is basic and if you have read above theory of basic authentication I had described that it is encoded in base64.</p>
+<p>Now time to generate the encoded value for authentication inside the burp suite.&nbsp;<strong>Click</strong>&nbsp;on&nbsp;<strong>action</strong>&nbsp;tab&nbsp;<strong>select send to intruder</strong>&nbsp;for HTTP Fuzzing attack.</p>
+<p><img src="https://4.bp.blogspot.com/-QhQqim0Lz-I/XB0aIukhX8I/AAAAAAAAbxU/jjpkqu8Co9wk59VNdGOLed4WnfsllKnwACLcBGAs/s1600/25.png" alt="" /></p>
+<p>Now open intruder frame and click on&nbsp;the position. Configure the position where payload will be inserted into&nbsp;the request. The attack type determines the way in which the payload is assigned to the payload position. Now&nbsp;<strong>select</strong>&nbsp;&ldquo;the encoded value of authentication&rdquo; for payload position and click to&nbsp;<strong>ADD</strong>&nbsp;button on the left side of&nbsp;the frame.</p>
+<p><img src="https://1.bp.blogspot.com/-pjbCRlVgXoo/XB0aITm1zyI/AAAAAAAAbxQ/xi9kzpdrIt8Z5du63kfp7_O3wXhpQfKbgCLcBGAs/s1600/26.png" alt="" /></p>
+<p>The base64 encoded value of Authentication is a combination of username and password now the scenario is to generate the same encoded value of authentication with the help of user password dictionary, Therefore, I have made a dictionary which contains both user password names in a text file.</p>
+<p>In order to use the dictionary as payload click on&nbsp;<strong>payload tab</strong>&nbsp;under intruder<strong>;&nbsp;</strong>now&nbsp;<strong>load</strong>&nbsp;your dictionary which contains user password names from&nbsp;<strong>payload options</strong>.</p>
+<p><img src="https://4.bp.blogspot.com/-9LeWyi2qSMQ/XB0aJU5GPLI/AAAAAAAAbxY/wSN0idL9W-87-i3uPjSRqwYxDwEsULhJQCLcBGAs/s1600/27.png" alt="" /></p>
+<p>But we want to send a request in the encoded value of our payload. To encode your payload click on&nbsp;<strong>ADD button</strong>&nbsp;available under payload processing.</p>
+<p>&nbsp;A new dialog box will generate to select the rule to choose an encode option from the list; now select&nbsp;<strong>base64</strong>&nbsp;from drag down the list of&nbsp;URL&nbsp;encode key character for payload processing.</p>
+<p><img src="https://4.bp.blogspot.com/-mARUwOcuPxc/XB0aJRrV-HI/AAAAAAAAbxg/_SjepXHLLrMZEZDR2llJ6BJqTLt2iLf6ACLcBGAs/s1600/28.png" alt="" /></p>
+<p>This will start a brute force attack and try to match string for user authentication. In the screenshot, you can observe the status &ldquo;200 OK&rdquo; and length &ldquo;11788&rdquo; of the highlighted value is different from the rest of the values. This means we can use this encoded value to bypass the user authentication, which occurs from request number 5. Now check the username and password on the 5th line in the dictionary. In the dictionary I found raj: 123 have matching authentication.</p>
+<p>Or you can also use this encoded Auth value to bypass the Apache HTTP authentication page via burp suite intercepted data.</p>
+<p><img src="https://2.bp.blogspot.com/-PDpGZ09LkVY/XB0aJsQM6jI/AAAAAAAAbxc/fgmuxeYaL2AincTrqfuYbNsfUBJz8pn6wCLcBGAs/s1600/29.png" alt="" /></p>
+<p>Copy the above auth value and paste replace it with intercepted authorization a shown in below and forward the request to access restricted content.</p>
+<p><img src="https://2.bp.blogspot.com/-CBOQJ0jUkNM/XB0aKXFWfJI/AAAAAAAAbxo/NFtHQxWdwj49Ip9hzYfXlWgS3bCDphxKACLcBGAs/s1600/30.png" alt="" /></p>
+<p>Booom!!! Here we have successfully access the content of the website.</p>
+<p><img src="https://1.bp.blogspot.com/-3TENecJmk_M/XB0aK2q_0lI/AAAAAAAAbxs/ZI6aeJ34rCkj0Of-V9sDlqLbrzLbVi5MACLcBGAs/s1600/31.png" alt="" /></p>
+</div>
+</div>
+</div>
+</body>
+</html>

